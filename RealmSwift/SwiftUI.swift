@@ -1206,12 +1206,7 @@ public extension BoundCollection where Value == List<Element> {
     /// :nodoc:
     func move(fromOffsets offsets: IndexSet, toOffset destination: Int) {
         safeWrite(self.wrappedValue) { list in
-            var d = destination
-            if let firstOffset = offsets.first,
-               destination > firstOffset {
-                d = destination - 1
-            }
-            list.move(fromOffsets: offsets, toOffset: d)
+            list.move(fromOffsets: offsets, toOffset: destination)
         }
     }
 
