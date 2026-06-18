@@ -88,11 +88,27 @@ jobs:
               configuration: static
             - platform: catalyst
               configuration: static
+            - platform: watchos
+              xcode-version: 26.0.1
+            - platform: tvos
+              xcode-version: 26.0.1
+            - platform: visionos
+              xcode-version: 26.0.1
       runs-on: ${{ matrix.os }}
       env:
         DEVELOPER_DIR: /Applications/Xcode_${{matrix.xcode-version}}.app/Contents/Developer
       steps:
         - uses: actions/checkout@v4
+        - name: Download missing SDK
+          if: matrix.platform == 'watchos' || matrix.platform == 'tvos' || matrix.platform == 'visionos'
+          run: |
+            if [ "${{ matrix.platform }}" = "watchos" ]; then
+              xcodebuild -downloadPlatform watchOS || true
+            elif [ "${{ matrix.platform }}" = "tvos" ]; then
+              xcodebuild -downloadPlatform tvOS || true
+            elif [ "${{ matrix.platform }}" = "visionos" ]; then
+              xcodebuild -downloadPlatform visionOS || true
+            fi
         - run: sh build.sh ${{matrix.platform}}-${{matrix.configuration}}
         - run: tar cf build.tar build/*/${{matrix.platform}}
         - name: Upload framework
