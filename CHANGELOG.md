@@ -17,7 +17,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Xcode: 16.3.0-26.0.1.
 
 ### Internal
-* Upgraded realm-core from ? to ?
+* Updated GitHub Actions workflow configuration to resolve changelog CI failures.
 
 10.54.6 Release notes (2025-10-15)
 =============================================================
