@@ -100,9 +100,11 @@ jobs:
       steps:
         - uses: actions/checkout@v4
         - name: Download missing SDK
-          if: matrix.platform == 'watchos' || matrix.platform == 'tvos' || matrix.platform == 'visionos'
+          if: matrix.platform == 'ios' || matrix.platform == 'watchos' || matrix.platform == 'tvos' || matrix.platform == 'visionos'
           run: |
-            if [ "${{ matrix.platform }}" = "watchos" ]; then
+            if [ "${{ matrix.platform }}" = "ios" ]; then
+              xcodebuild -downloadPlatform iOS || true
+            elif [ "${{ matrix.platform }}" = "watchos" ]; then
               xcodebuild -downloadPlatform watchOS || true
             elif [ "${{ matrix.platform }}" = "tvos" ]; then
               xcodebuild -downloadPlatform tvOS || true
