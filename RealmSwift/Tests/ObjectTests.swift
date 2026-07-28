@@ -1641,7 +1641,7 @@ class ObjectTests: TestCase {
             let realm = try await Realm(actor: CustomGlobalActor.shared)
             let obj = realm.objects(SwiftObject.self).first!
             var value = 0
-            for try await change in changesetPublisher(obj).buffer(size: 10, prefetch: .byRequest, whenFull: .dropOldest).values {
+            for try await change in changesetPublisher(obj).values {
                 guard case let .change(object, props) = change else {
                     return XCTFail("Expected .change, got \(change)")
                 }
@@ -1696,7 +1696,7 @@ class ObjectTests: TestCase {
     }
 
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
-    func skip_testCancelTaskWhileWaitingForInitial() async throws {
+    func testCancelTaskWhileWaitingForInitial() async throws {
         // This can't be tested deterministically as it's trying to hit specific
         // timing windows, so instead spawn a bunch of tasks and hope that at
         // least one is in each of the interesting states. Not handling all of
@@ -2053,7 +2053,7 @@ class ObjectTests: TestCase {
         let frozen = obj.freeze()
         XCTAssertTrue(frozen.isFrozen)
 
-        try! obj.realm!.write({ obj.boolCol = false })
+        try! obj.realm!.write { obj.boolCol = false }
         XCTAssert(frozen.boolCol, "Frozen objects shouldn't mutate")
 
         let thawed = frozen.thaw()!

@@ -1,124 +1,95 @@
-x.y.z Release notes (yyyy-MM-dd)
+20.0.5 Release notes (2026-06-14)
 =============================================================
-### Enhancements
-* None.
 
-### Fixed
-* <How to hit and notice issue? what was the impact?> ([#????](https://github.com/realm/realm-swift/issues/????), since v?.?.?)
-* None.
-
-<!-- ### Breaking Changes - ONLY INCLUDE FOR NEW MAJOR version -->
+* Fix compilation with Xcode 27.
+* When using Xcode 27, the `where` property on some SwiftUI helpers is defined
+  differently to work around backtick-escaped names not working in macro
+  expansions. The new definition appears to be API-compatible, but please
+  report if there is some case where it does not work.
 
 ### Compatibility
-* Realm Studio: 15.0.0 or later.
-* APIs are backwards compatible with all previous releases in the 10.x.y series.
-* Carthage release for Swift is built with Xcode 26.0.1.
+
+* Carthage release for Swift is built with Xcode 26.5.
 * CocoaPods: 1.10 or later.
-* Xcode: 16.3.0-26.0.1.
+* Xcode: 26.1-27
 
 ### Internal
-* Updated GitHub Actions workflow configuration to resolve changelog CI failures.
 
-10.54.6 Release notes (2025-10-15)
+* Upgraded realm-core from 20.1.4 to 20.1.5
+
+20.0.4 Release notes (2026-02-22)
 =============================================================
 
-Add Xcode 26.0.1 binaries and drop support for Xcode < 16.3.
+* Update build scripts for Xcode 26.
+* Drop support for Xcode < 26.
+* Prebuilt binaries are no longer code signed as Realm is no longer officially
+  distributed by MongoDB.
+* Fix compilation with Xcode 26.4.
 
-10.54.5 Release notes (2025-06-15)
+### Compatibility
+
+* Carthage release for Swift is built with Xcode 26.3.
+* CocoaPods: 1.10 or later.
+* Xcode: 26.1-26.4
+
+20.0.3 Release notes (2025-06-15)
 =============================================================
 
 ### Enhancements
 
-* Add Xcode 16.4 binaries.
+* Update build scripts for Xcode 16.4.
 * Add support for building with Xcode 26 beta 1.
 
 ### Compatibility
 
-* Realm Studio: 15.0.0 or later.
-* APIs are backwards compatible with all previous releases in the 10.x.y series.
 * Carthage release for Swift is built with Xcode 16.4.0.
 * CocoaPods: 1.10 or later.
 * Xcode: 15.3.0-26 beta 1.
 
-10.54.4 Release notes (2025-04-09)
+20.0.2 Release notes (2025-04-14)
 =============================================================
 
 ### Enhancements
 
-* Add Xcode 16.3 binaries.
+* Update build scripts for Xcode 16.3.
 
 ### Compatibility
 
-* Realm Studio: 15.0.0 or later.
-* APIs are backwards compatible with all previous releases in the 10.x.y series.
 * Carthage release for Swift is built with Xcode 16.3.0.
 * CocoaPods: 1.10 or later.
 * Xcode: 15.3.0-16.3.
 
-10.54.3 Release notes (2025-03-07)
+20.0.1 Release notes (2024-12-27)
 =============================================================
 
 ### Enhancements
 
-* Enable automatic client reset handling for Events Realms. These Realms
-  typically do not trigger client resets, but may if sync is restarted when one
-  is partially uploaded. ([Core #8072](https://github.com/realm/realm-core/pull/8072)).
-
-### Compatibility
-
-* Realm Studio: 15.0.0 or later.
-* APIs are backwards compatible with all previous releases in the 10.x.y series.
-* Carthage release for Swift is built with Xcode 16.2.0.
-* CocoaPods: 1.10 or later.
-* Xcode: 15.3.0-16.2.
-
-### Internal
-
-* Upgraded realm-core from v14.13.1 to 14.14.0
-
-10.54.2 Release notes (2024-12-17)
-=============================================================
-
-### Enhancements
-
-* Add prebuilt binaries for Xcode 16.2.
-
-### Compatibility
-
-* Realm Studio: 15.0.0 or later.
-* APIs are backwards compatible with all previous releases in the 10.x.y series.
-* Carthage release for Swift is built with Xcode 16.2.0.
-* CocoaPods: 1.10 or later.
-* Xcode: 15.3.0-16.2.
-
-10.54.1 Release notes (2024-10-22)
-=============================================================
+* Update build scripts for Xcode 16.2.
 
 ### Fixed
 
-* The events library would attempt to upload backup files created as part of
-  file format upgrades, causing backup copies of those backups to be made,
-  looping until the maximum file name size was reached
-  ([Core #8040](https://github.com/realm/realm-core/issues/8040), since v10.26.0).
+* A query with a number of predicates ORed together may result in a
+  crash on some platforms (strict weak ordering check failing on iphone)
+  ([#8028](https://github.com/realm/realm-core/issues/8028), since v10.50.0).
 
 ### Compatibility
 
 * Realm Studio: 15.0.0 or later.
-* APIs are backwards compatible with all previous releases in the 10.x.y series.
-* Carthage release for Swift is built with Xcode 15.4.0.
+* Carthage release for Swift is built with Xcode 16.2.0.
 * CocoaPods: 1.10 or later.
-* Xcode: 15.3.0-16.1 beta.
+* Xcode: 15.3.0-16.2.
 
 ### Internal
 
-* Upgraded realm-core from v14.13.0 to 14.13.1
+* Upgraded realm-core from v20.0.0 to 20.1.0
 
-10.54.0 Release notes (2024-09-20)
+20.0.0 Release notes (2024-09-09)
 =============================================================
 
 The minimum supported version of Xcode is now 15.3.
 
 ### Enhancements
+
 * Build in Swift 6 language mode when using Xcode 16. Libraries build in Swift
   6 mode can be consumed by apps built in Swift 5 mode, so this should not have
   any immediate effects beyond eliminating some warnings and ensuring that all
@@ -134,30 +105,67 @@ The minimum supported version of Xcode is now 15.3.
   of macros. It can still be used as a property wrapper for class properties
   and as a manual wrapper locally, but note that it does not combine well with
   actor-isolated Realms.
-  - In Swift 6 mode a few mongo client functions have changed from returning
-  `[AnyHashable: Any]` to `Document`. These should have been `Document` all
-  along, and the old return type no longer compiles due to not being Sendable.
 * Some SwiftUI components are now explicitly marked as `@MainActor`. These
   types were implicitly `@MainActor` in Swift 5, but became nonisolated when
   using Xcode 16 in Swift 5 mode due to the removal of implicit isolation when
   using property wrappers on member variables. This resulted in some new
   sendability warnings in Xcode 16 (or errors in Swift 6 mode).
-* Add Xcode 16 and 16.1 binaries to the release packages.
+* Add Xcode 16 and 16.1 binaries to the release packages (currently built with
+  beta 6 and beta 1 respectively).
 
-### Fixed
-* Having a query with a number of predicates ORed together may result in a
-  crash on some platforms (strict weak ordering check failing on iphone)
-  ([#8028](https://github.com/realm/realm-core/issues/8028), since v10.50.0)
+### Breaking Changes
+
+* All Atlas App Services and Atlas Device Sync functionality has been removed.
+  Users of Atlas Device Sync should pin to v10.
+* Queries on AnyRealmValue properties previously considered strings to be
+  equivalent to Data containing the UTF-8 encoded string. Strings and Data are
+  now considered different types and queries for one of them will not match the
+  other.
+* Realms are no longer autoreleased when initialized. This means that code
+  along the lines of the following will no longer work:
+
+  ```Swift
+  try! Realm().beginWrite()
+  try! Realm().create(MyObject.self, value: ...)
+  try! Realm().commitWrite()
+  ```
+
+  This was a pattern which was somewhat natural with the original version of
+  the objective-c API, but only worked in debug builds and would fail in
+  release builds. We decided to make it consistently work by forcing the Realm
+  to be autoreleased rather than let users write code which appeared to work
+  but was actually broken. In modern Swift this code is very strange, and
+  autoreleasing the Realm made it much more difficult to ensure that the
+  file is actually closed at predictable times.
+
+  Realms are now returned retained in both debug and release modes, so this
+  will always break rather than appearing to work. Note that there is still a
+  weak cache of Realms and `Realm()` will still return a reference to the
+  existing Realm if there is one open on the current thread.
+* Iterating a Map now produces the tuple `(key: KeyType, value: ValueType)`
+  rather than a very similar struct, and `.asKeyValueSequence()` has been
+  removed. This aligns `Map` with `Dictionary` and makes many operations
+  defined by `Sequence` work on `Map`.
+* Passing an empty array for notification keypaths to filter on (e.g.
+  `obj.observe(keyPaths: [])`) was treated the same as passing `nil`, i.e. no
+  filtering was done. It now instead observes no keypaths. For objects this
+  means it will only report the object being deleted, and for collections it
+  will only report collection-level changes and not changes to the objects
+  inside the collection.
+* `Decimal128(string:)` was marked as `throws`, but it never actually threw an
+  error and instead returned `NaN` if the string could not be parsed as a
+  decimal128. That behavior was kept and it is no longer marked as `throws`.
 
 ### Compatibility
+
 * Realm Studio: 15.0.0 or later.
-* APIs are backwards compatible with all previous releases in the 10.x.y series.
 * Carthage release for Swift is built with Xcode 15.4.0.
 * CocoaPods: 1.10 or later.
 * Xcode: 15.3.0-16.1 beta.
 
 ### Internal
-* Upgraded realm-core from v14.12.1 to 14.13.0
+
+* Upgraded realm-core from v14.12.1 to v20.0.0.
 
 10.53.1 Release notes (2024-09-05)
 =============================================================
