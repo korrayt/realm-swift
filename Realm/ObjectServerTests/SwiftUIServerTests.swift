@@ -568,7 +568,7 @@ class PBSSwiftUIServerTests: SwiftUIServerTests {
 
 @available(macOS 13, *)
 @MainActor
-class FLXSwiftUIServerTests: SwiftUIServerTests, Sendable {
+class FLXSwiftUIServerTests: SwiftUIServerTests {
     override func createApp() throws -> String {
         try createFlexibleSyncApp()
     }
