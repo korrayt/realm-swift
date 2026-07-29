@@ -1,13 +1,6 @@
-> [!WARNING]
-> We announced the deprecation of Atlas Device Sync + Realm SDKs in September 2024. For more information please see:
-> - [SDK Deprecation](https://www.mongodb.com/docs/atlas/device-sdks/deprecation)
-> - [Device Sync Deprecation](https://www.mongodb.com/docs/atlas/app-services/sync/device-sync-deprecation)
->
-> For a version of `realm-swift` without sync features, install version 20 or see the `community` branch.
-
 <picture>
-    <source srcset="./media/logo-dark.svg" media="(prefers-color-scheme: dark)" alt="realm by MongoDB">
-    <img src="./media/logo.svg" alt="realm by MongoDB">
+    <source srcset="./media/logo-dark.svg" media="(prefers-color-scheme: dark)" alt="realm">
+    <img src="./media/logo.svg" alt="realm">
 </picture>
 
 # About Realm Database
@@ -15,12 +8,15 @@
 Realm is a mobile database that runs directly inside phones, tablets or wearables.
 This repository holds the source code for the iOS, macOS, tvOS & watchOS versions of Realm Swift & Realm Objective-C.
 
+> Realm Swift 20 is local-database-only. Atlas Device Sync and Atlas App
+> Services APIs have been removed. Applications upgrading from Realm Swift 10
+> should follow the [Sync removal migration guide](SYNC_REMOVAL_MIGRATION.md).
+
 ## Why Use Realm
 
 * **Intuitive to Developers:** Realm’s object-oriented data model is simple to learn, doesn’t need an ORM, and lets you write less code.
 * **Built for Mobile:** Realm is fully-featured, lightweight, and efficiently uses memory, disk space, and battery life.
 * **Designed for Offline Use:** Realm’s local database persists data on-disk, so apps work as well offline as they do online.
-* **[MongoDB Atlas Device Sync](https://www.mongodb.com/docs/atlas/app-services/sync/)**: Makes it simple to keep data in sync across users, devices, and your backend in real-time. Get started for free with [a template application](https://github.com/mongodb/template-app-swiftui-todo) and [create the cloud backend](http://mongodb.com/realm/register?utm_medium=github_atlas_CTA&utm_source=realm_swift_github).
 
 ## Object-Oriented: Streamline Your Code
 
@@ -133,14 +129,14 @@ let dogs = realm.objects(Dog.self).filter("name contains 'Fido'")
 
 We support installing Realm via Swift Package Manager, CocoaPods, Carthage, or by importing a dynamic XCFramework.
 
-For more information, see the detailed instructions in our [docs](https://www.mongodb.com/docs/atlas/device-sdks/sdk/swift/install/).
-
-Interested in getting started for free with [a template application](https://github.com/mongodb/template-app-swiftui-todo) that includes a cloud backend and Sync? [Create a MongoDB Atlas Account](http://mongodb.com/realm/register?utm_medium=github_atlas_CTA&utm_source=realm_swift_github).
+For more information, see our [Quick Start](docs/guides/quick-start.md).
 
 ## Documentation
 
-The documentation can be found at [mongodb.com/docs/atlas/device-sdks/sdk/swift/](https://www.mongodb.com/docs/atlas/device-sdks/sdk/swift/).
-The API reference is located at [mongodb.com/docs/realm-sdks/swift/latest/](https://www.mongodb.com/docs/realm-sdks/swift/latest/)
+The documentation can be found in the [docs/](docs/README.md) directory.
+
+The API reference can be generated from source using
+[jazzy](https://github.com/realm/jazzy/) by running `sh build.sh docs` from the root of this repository.
 
 ## Getting Help
 
@@ -154,7 +150,7 @@ In case you don't want to use the precompiled version, you can build Realm yours
 
 Prerequisites:
 
-* Building Realm requires Xcode 14.1 or newer.
+* Building Realm requires Xcode 15.3 or newer.
 * Building Realm documentation requires [jazzy](https://github.com/realm/jazzy)
 
 Once you have all the necessary prerequisites, building Realm just takes a single command: `sh build.sh build`.
